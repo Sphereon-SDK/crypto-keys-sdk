@@ -1,0 +1,9 @@
+# Sphereon.SDK.Crypto.Keys.Model.ConfigurationResponse
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Configuration** | [**Configuration**](Configuration.md) | Configuration | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+

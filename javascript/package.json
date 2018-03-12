@@ -1,0 +1,21 @@
+{
+  "name": "crypto_keys",
+  "version": "0.9",
+  "description": "The_Crypto_Keys_API_allows_you_to_import_create_and_work_with_symmetric_and_asymmetric_keys_and_certificates_to_signverify_digest_values_encryptdecrypt_input_or_hash_and_sign_input_values__The_benefit_is_that_you_dont_have_to_store_secret_keys_in_your_application_The_API_has_an_integration_with_Azure_KeyVault_allowing_you_to_store_keys_secrets_and_certificates_in_FIPS_140_2_Level_2_validated_Hardware_Security_Modules__HSM__The_key_will_never_leave_the_HSM_making_it_really_secure_especially_if_you_combine_it_with_IP_whitelistingInteractive_testing_A_web_based_test_console_is_available_in_the_a_hrefhttpsstore_sphereon_comSphereon_API_Storea",
+  "license": "Unlicense",
+  "main": "src/SphereonSDKCryptoKeys/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --recursive"
+  },
+  "browser": {
+    "fs": false
+  },
+  "dependencies": {
+    "superagent": "3.5.2"
+  },
+  "devDependencies": {
+    "mocha": "~2.3.4",
+    "sinon": "1.17.3",
+    "expect.js": "~0.3.1"
+  }
+}
