@@ -1,0 +1,1956 @@
+{
+  "basePath": "/crypto/keys/0.9",
+  "paths": {
+    "/{config}/keys/import": {"post": {
+      "summary": "Import key",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Imports a new key",
+      "operationId": "ImportKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeyBundle"},
+        "description": "Imported key successfully."
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/ImportKeyRequest"},
+          "in": "body",
+          "name": "request",
+          "description": "The import key request",
+          "required": true
+        }
+      ],
+      "tags": ["Key"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/keys/{name}/{version}": {"get": {
+      "summary": "Get key information",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Gets information about a key",
+      "operationId": "GetKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeyBundleResponse"},
+        "description": "Key information retrieved."
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "description": "version",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "tags": ["Key"]
+    }},
+    "/{config}/certs/import": {"post": {
+      "summary": "Import certificate",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Imports an existing valid certificate, containing a private key, into Azure Key Vault. The certificate to be imported can be in either PFX or PEM format. If the certificate is in PEM format the PEM file must contain the key as well as x509 certificates.",
+      "operationId": "ImportCert",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/CreateCertificateResponse"},
+        "description": "Imported certificate successfully."
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/ImportCertificateRequest"},
+          "in": "body",
+          "name": "request",
+          "description": "The import certificate request",
+          "required": true
+        }
+      ],
+      "tags": ["Cert"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/keys/{name}/{version}/verify": {"post": {
+      "summary": "Verify signature",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Verifies a signature using a key. This operation is applicable to assymetric and symmetric keys. It is not strictly necessary for asymmetric keys, since signature verification can be performed using the public portion of the key but this operation is supported as a convenience for callers that only have a key-reference and not the public portion of the key.",
+      "operationId": "VerifyUsingKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeyVerifyResponse"},
+        "description": "Digest signature verified."
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "description": "version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/KeyVerifyRequest"},
+          "in": "body",
+          "name": "request",
+          "description": "The verify request",
+          "required": true
+        }
+      ],
+      "tags": ["Content"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/keys/{name}/{version}/decrypt": {"post": {
+      "summary": "Decrypt value",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Decrypts a well-formed block of ciphertext using the target encryption key and specified algorithm. This operation is the reverse of the encrypt operation. This operation applies to asymmetric and symmetric keys since it uses the private portion of the key.",
+      "operationId": "DecryptUsingKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeyDecryptResponse"},
+        "description": "Input decrypted"
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "description": "version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/KeyDecryptRequest"},
+          "in": "body",
+          "name": "request",
+          "description": "The decrypt request",
+          "required": true
+        }
+      ],
+      "tags": ["Content"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/keys/{name}": {"delete": {
+      "summary": "Delete key",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Deletes a key",
+      "operationId": "DeleteKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/DeletedKeyBundleResponse"},
+        "description": "Key deletion requested"
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "tags": ["Key"]
+    }},
+    "/{config}/keys/{name}/{version}/sign": {"post": {
+      "summary": "Create signature",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Creates a signature from a digest using a key. This operation is applicable to asymmetric and symmetric keys, since this operation uses the private portion of the key. Please note that the input needs to be a hash using a hash algorithm that fits the JsonWebKeySignatureAlgorithm, meaning SHA-256, SHA-384 or SHA-512",
+      "operationId": "SignUsingKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeySignResponse"},
+        "description": "Digest signed"
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "description": "version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/KeySignRequest"},
+          "in": "body",
+          "name": "request",
+          "description": "The sign request",
+          "required": true
+        }
+      ],
+      "tags": ["Content"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/certs": {"get": {
+      "summary": "List certificates metadata information",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Gets a list of all certiciate metadata",
+      "operationId": "ListCerts",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/CertificateMetadataListResponse"},
+        "description": "Certificate metadata retrieved."
+      }},
+      "parameters": [{
+        "in": "path",
+        "name": "config",
+        "description": "config",
+        "type": "string",
+        "required": true
+      }],
+      "tags": ["Cert"]
+    }},
+    "/{config}/certs/{name}": {"delete": {
+      "summary": "Delete certificate",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Deletes a certificate",
+      "operationId": "DeleteCert",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/DeletedCertificateBundleResponse"},
+        "description": "Certificate deletion requested"
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "tags": ["Cert"]
+    }},
+    "/{config}/keys/create": {"post": {
+      "summary": "Create key",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Creates a new key",
+      "operationId": "CreateKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeyBundle"},
+        "description": "Key created"
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/CreateKeyRequest"},
+          "in": "body",
+          "name": "request",
+          "description": "The create key request",
+          "required": true
+        }
+      ],
+      "tags": ["Key"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/keys/{name}/{version}/encrypt": {"post": {
+      "summary": "Encrypt value",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Encrypts a sequence of bytes using an encryption key. This operation is only strictly necessary for symmetric keys since encryption with an asymmetric key can be performed using the public portion of the key. This operation is supported for asymmetric keys as a convenience for callers that have a key-reference but do not have access to the public key material.",
+      "operationId": "EncryptUsingKey",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeyEncryptResponse"},
+        "description": "Input encrypted"
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "description": "version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/KeyEncryptRequest"},
+          "in": "body",
+          "name": "request",
+          "description": "The encrypt request",
+          "required": true
+        }
+      ],
+      "tags": ["Content"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/certs/create": {"post": {
+      "summary": "Create certificate",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Creates a new certificate. ",
+      "operationId": "CreateCert",
+      "responses": {
+        "201": {
+          "schema": {"$ref": "#/definitions/CreateCertificateResponse"},
+          "description": "Created"
+        },
+        "202": {
+          "schema": {"$ref": "#/definitions/CreateCertificateResponse"},
+          "description": "Certificate creation started"
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "schema": {"$ref": "#/definitions/CreateCertificateRequest"},
+          "in": "body",
+          "name": "certificateRequest",
+          "description": "The create certificate request",
+          "required": true
+        }
+      ],
+      "tags": ["Cert"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/manage/configs": {"post": {
+      "summary": "Create a new Configuration",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Create a new crypto key configuration",
+      "operationId": "CreateConfiguration",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/ConfigurationResponse"},
+        "description": "Configuration created"
+      }},
+      "parameters": [{
+        "schema": {"$ref": "#/definitions/Create configuration request"},
+        "in": "body",
+        "name": "request",
+        "description": "The configuration request",
+        "required": true
+      }],
+      "tags": ["Config"],
+      "consumes": ["application/json;charset=UTF-8"]
+    }},
+    "/{config}/keys": {"get": {
+      "summary": "List keys metadata information",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Gets a list of all key metadata",
+      "operationId": "ListKeys",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/KeyMetadataListResponse"},
+        "description": "Key metadata retrieved."
+      }},
+      "parameters": [{
+        "in": "path",
+        "name": "config",
+        "description": "config",
+        "type": "string",
+        "required": true
+      }],
+      "tags": ["Key"]
+    }},
+    "/manage/configs/{config}": {
+      "get": {
+        "summary": "Get Configuration",
+        "security": [{"oauth2schema": ["global"]}],
+        "produces": ["application/json;charset=UTF-8"],
+        "description": "Get existing configuration",
+        "operationId": "GetConfiguration",
+        "responses": {"200": {
+          "schema": {"$ref": "#/definitions/ConfigurationResponse"},
+          "description": "Configuration"
+        }},
+        "parameters": [{
+          "in": "path",
+          "name": "config",
+          "description": "config name",
+          "type": "string",
+          "required": true
+        }],
+        "tags": ["Config"]
+      },
+      "delete": {
+        "summary": "Delete Configuration",
+        "security": [{"oauth2schema": ["global"]}],
+        "produces": ["application/json;charset=UTF-8"],
+        "description": "Delete an existing configuration. As a protection this can only be done using the configuration Id and this not the name",
+        "operationId": "DeleteConfiguration",
+        "responses": {"200": {
+          "schema": {"$ref": "#/definitions/ConfigurationResponse"},
+          "description": "Configuration deleted"
+        }},
+        "parameters": [{
+          "in": "path",
+          "name": "config",
+          "description": "config id",
+          "type": "string",
+          "required": true
+        }],
+        "tags": ["Config"]
+      },
+      "put": {
+        "summary": "Update Configuration",
+        "security": [{"oauth2schema": ["global"]}],
+        "produces": ["application/json;charset=UTF-8"],
+        "description": "Update an existing configuration",
+        "operationId": "UpdateConfiguration",
+        "responses": {"200": {
+          "schema": {"$ref": "#/definitions/ConfigurationResponse"},
+          "description": "Configuration updated"
+        }},
+        "parameters": [
+          {
+            "in": "path",
+            "name": "config",
+            "description": "config",
+            "type": "string",
+            "required": true
+          },
+          {
+            "schema": {"$ref": "#/definitions/UpdateConfigurationRequest"},
+            "in": "body",
+            "name": "request",
+            "description": "The updated configuration request",
+            "required": true
+          }
+        ],
+        "tags": ["Config"],
+        "consumes": ["application/json;charset=UTF-8"]
+      }
+    },
+    "/{config}/certs/{name}/{version}": {"get": {
+      "summary": "Get certificate info",
+      "security": [{"oauth2schema": ["global"]}],
+      "produces": ["application/json;charset=UTF-8"],
+      "description": "Gets information about a certificate",
+      "operationId": "GetCert",
+      "responses": {"200": {
+        "schema": {"$ref": "#/definitions/CertificateBundleResponse"},
+        "description": "Certificate information retrieved."
+      }},
+      "parameters": [
+        {
+          "in": "path",
+          "name": "config",
+          "description": "config",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "version",
+          "description": "version",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "tags": ["Cert"]
+    }}
+  },
+  "host": "gw.api.cloud.sphereon.com",
+  "schemes": ["https"],
+  "securityDefinitions": {"oauth2schema": {
+    "tokenUrl": "https://gw.api.cloud.sphereon.com/token",
+    "scopes": {"global": "accessEverything"},
+    "type": "oauth2",
+    "flow": "application"
+  }},
+  "definitions": {
+    "DeletedCertificateBundleResponse": {
+      "description": "Certificate bundle response",
+      "type": "object",
+      "title": "DeletedCertificateBundleResponse",
+      "required": [
+        "deletedCertificateBundle",
+        "name",
+        "version"
+      ],
+      "properties": {
+        "name": {
+          "allowEmptyValue": false,
+          "description": "The name/id of the certificate",
+          "readOnly": true,
+          "type": "string"
+        },
+        "deletedCertificateBundle": {
+          "allowEmptyValue": false,
+          "description": "Deleted certificate bundle",
+          "readOnly": true,
+          "$ref": "#/definitions/DeletedCertificateBundle"
+        },
+        "version": {
+          "allowEmptyValue": false,
+          "description": "The version of the bundle",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "Action": {
+      "description": "An action to perform (email, renew)",
+      "type": "object",
+      "title": "Action",
+      "required": ["actionType"],
+      "properties": {"actionType": {
+        "allowEmptyValue": false,
+        "description": "The action type",
+        "type": "string",
+        "enum": [
+          "EMAIL_CONTACTS",
+          "AUTO_RENEW"
+        ]
+      }}
+    },
+    "AzureKeyVaultSettings": {
+      "type": "object",
+      "title": "AzureKeyVaultSettings",
+      "properties": {
+        "resourceGroup": {"type": "string"},
+        "environment": {
+          "type": "string",
+          "enum": [
+            "AZURE",
+            "AZURE_CHINA",
+            "AZURE_GERMANY",
+            "AZURE_US_GOVERNMENT"
+          ]
+        },
+        "keyVaultName": {"type": "string"},
+        "clientId": {"type": "string"},
+        "hsmUsage": {
+          "type": "string",
+          "enum": [
+            "DISALLOW",
+            "OPTIONAL",
+            "PREFER",
+            "REQUIRE"
+          ]
+        },
+        "keyVaultURL": {"type": "string"},
+        "clientSecret": {"type": "string"},
+        "region": {
+          "type": "string",
+          "enum": [
+            "US_WEST",
+            "US_WEST2",
+            "US_CENTRAL",
+            "US_EAST",
+            "US_EAST2",
+            "US_NORTH_CENTRAL",
+            "US_SOUTH_CENTRAL",
+            "US_WEST_CENTRAL",
+            "CANADA_CENTRAL",
+            "CANADA_EAST",
+            "BRAZIL_SOUTH",
+            "EUROPE_NORTH",
+            "EUROPE_WEST",
+            "UK_SOUTH",
+            "UK_WEST",
+            "ASIA_EAST",
+            "ASIA_SOUTHEAST",
+            "JAPAN_EAST",
+            "JAPAN_WEST",
+            "AUSTRALIA_EAST",
+            "AUSTRALIA_SOUTHEAST",
+            "INDIA_CENTRAL",
+            "INDIA_SOUTH",
+            "INDIA_WEST",
+            "KOREA_CENTRAL",
+            "KOREA_SOUTH",
+            "CHINA_NORTH",
+            "CHINA_EAST",
+            "GERMANY_CENTRAL",
+            "GERMANY_NORTHEAST",
+            "GOV_US_VIRGINIA",
+            "GOV_US_IOWA"
+          ]
+        },
+        "subscriptionId": {"type": "string"},
+        "tenant": {"type": "string"}
+      }
+    },
+    "ConfigurationResponse": {
+      "description": "Configuration response",
+      "type": "object",
+      "title": "ConfigurationResponse",
+      "required": ["configuration"],
+      "properties": {"configuration": {
+        "allowEmptyValue": false,
+        "description": "Configuration",
+        "readOnly": true,
+        "$ref": "#/definitions/Configuration"
+      }}
+    },
+    "KeyDecryptRequest": {
+      "type": "object",
+      "title": "KeyDecryptRequest",
+      "properties": {
+        "encrypted": {
+          "format": "byte",
+          "type": "string"
+        },
+        "alg": {
+          "type": "string",
+          "enum": [
+            "RSA_OAEP_256",
+            "RSA_OAEP",
+            "RSA1_5"
+          ]
+        }
+      }
+    },
+    "Configuration": {
+      "description": "Configuration",
+      "type": "object",
+      "title": "Configuration",
+      "required": ["name"],
+      "properties": {
+        "azureKeyVaultSettings": {"$ref": "#/definitions/AzureKeyVaultSettings"},
+        "implementationType": {
+          "type": "string",
+          "enum": [
+            "AZURE_KEYVAULT_MANAGED",
+            "AZURE_KEYVAULT_DEDICATED",
+            "KEYSTORE_FILE"
+          ]
+        },
+        "localStorageSettings": {"$ref": "#/definitions/LocalStorageSettings"},
+        "storageTypeType": {
+          "type": "string",
+          "enum": [
+            "AZURE_KEYVAULT",
+            "LOCAL_STORAGE"
+          ]
+        },
+        "name": {
+          "allowEmptyValue": false,
+          "description": "The name as it appears in the urls. Allowed values hexadecimal characters and -",
+          "type": "string"
+        },
+        "id": {
+          "allowEmptyValue": false,
+          "description": "The id of the configuration",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "LifetimeAction": {
+      "description": "Lifetime action and trigger for certificate",
+      "type": "object",
+      "title": "LifetimeAction",
+      "required": [
+        "action",
+        "trigger"
+      ],
+      "properties": {
+        "action": {
+          "allowEmptyValue": false,
+          "description": "The action that will be performed",
+          "$ref": "#/definitions/Action"
+        },
+        "trigger": {
+          "allowEmptyValue": false,
+          "description": "The trigger condition for the action",
+          "$ref": "#/definitions/Trigger"
+        }
+      }
+    },
+    "CertificatePolicy": {
+      "description": "The certificate policy",
+      "type": "object",
+      "title": "CertificatePolicy",
+      "properties": {
+        "lifetimeActions": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/LifetimeAction"}
+        },
+        "keyProperties": {"$ref": "#/definitions/KeyProperties"},
+        "x509Properties": {"$ref": "#/definitions/X509Properties"},
+        "attributes": {"$ref": "#/definitions/Attributes"},
+        "id": {"type": "string"},
+        "issuer": {"$ref": "#/definitions/IssuerParameters"},
+        "secretProperties": {"$ref": "#/definitions/SecretProperties"}
+      }
+    },
+    "ImportKeyRequest": {
+      "type": "object",
+      "title": "ImportKeyRequest",
+      "properties": {
+        "applicationMetadata": {
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "name": {"type": "string"},
+        "attributes": {"$ref": "#/definitions/Attributes"},
+        "key": {"$ref": "#/definitions/JsonWebKey"}
+      }
+    },
+    "Attributes": {
+      "description": "Attributes associated with a key or certificate",
+      "type": "object",
+      "title": "Attributes",
+      "properties": {
+        "notBeforeTime": {
+          "allowEmptyValue": false,
+          "format": "date-time",
+          "description": "Do not use before time",
+          "type": "string"
+        },
+        "updatedTime": {
+          "allowEmptyValue": false,
+          "format": "date-time",
+          "description": "Last update time",
+          "type": "string"
+        },
+        "creationTime": {
+          "allowEmptyValue": false,
+          "format": "date-time",
+          "description": "The creation time",
+          "type": "string"
+        },
+        "expirationTime": {
+          "allowEmptyValue": false,
+          "format": "date-time",
+          "description": "The expiration time",
+          "type": "string"
+        },
+        "enabled": {
+          "allowEmptyValue": false,
+          "description": "Enabled",
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "DeletedCertificateBundle": {
+      "type": "object",
+      "title": "DeletedCertificateBundle",
+      "required": [
+        "cer",
+        "cid",
+        "url"
+      ],
+      "properties": {
+        "backendMetadata": {
+          "allowEmptyValue": false,
+          "description": "StorageType metadata. This is the place where additional metadata return from the backend is stored",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application metadata. This is the place where you can store your own tags",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "Key Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "mediaType": {
+          "allowEmptyValue": false,
+          "description": "Media type of the certificate",
+          "readOnly": true,
+          "type": "string"
+        },
+        "recoveryId": {"type": "string"},
+        "url": {
+          "allowEmptyValue": false,
+          "description": "Certificate URL",
+          "readOnly": true,
+          "type": "string"
+        },
+        "sid": {
+          "allowEmptyValue": false,
+          "description": "Secret Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "cer": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "Certificate x509 CER contents",
+          "readOnly": true,
+          "type": "string"
+        },
+        "scheduledPurgeTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "The attributes",
+          "readOnly": true,
+          "$ref": "#/definitions/Attributes"
+        },
+        "deletedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "x509Thumbprint": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "Certificate X509 thumbprint",
+          "readOnly": true,
+          "type": "string"
+        },
+        "cid": {
+          "allowEmptyValue": false,
+          "description": "Certificate Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "policy": {
+          "allowEmptyValue": false,
+          "description": "Certificate management policy",
+          "readOnly": true,
+          "$ref": "#/definitions/CertificatePolicy"
+        }
+      }
+    },
+    "X509Properties": {
+      "type": "object",
+      "title": "X509Properties",
+      "required": [
+        "keyUsage",
+        "subject",
+        "validityMonths"
+      ],
+      "properties": {
+        "enhancedKeyUsage": {
+          "allowEmptyValue": false,
+          "description": "Enhanced key usage",
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "keyUsage": {
+          "allowEmptyValue": false,
+          "description": "List of key usages",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "DIGITAL_SIGNATURE",
+              "NON_REPUDIATION",
+              "KEY_ENCIPHERMENT",
+              "DATA_ENCIPHERMENT",
+              "KEY_AGREEMENT",
+              "KEY_CERT_SIGN",
+              "CRL_SIGN",
+              "ENCIPHER_ONLY",
+              "DECIPHER_ONLY"
+            ]
+          }
+        },
+        "validityMonths": {
+          "allowEmptyValue": false,
+          "format": "int32",
+          "description": "Certificate validity in months",
+          "type": "integer"
+        },
+        "sans": {
+          "allowEmptyValue": false,
+          "description": "Subject alternative name",
+          "$ref": "#/definitions/SubjectAlternativeNames"
+        },
+        "subject": {
+          "allowEmptyValue": false,
+          "description": "Subject name. Should be a valid X509 Distinguished Name",
+          "type": "string"
+        }
+      }
+    },
+    "KeyBundleResponse": {
+      "description": "Key bundle response",
+      "type": "object",
+      "title": "KeyBundleResponse",
+      "required": [
+        "keyBundle",
+        "name",
+        "version"
+      ],
+      "properties": {
+        "keyBundle": {
+          "allowEmptyValue": false,
+          "description": "Key bundle",
+          "readOnly": true,
+          "$ref": "#/definitions/DeletedKeyBundle"
+        },
+        "name": {
+          "allowEmptyValue": false,
+          "description": "The name/id of the key",
+          "readOnly": true,
+          "type": "string"
+        },
+        "version": {
+          "allowEmptyValue": false,
+          "description": "The version of the bundle",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "CreateCertificateResponse": {
+      "description": "Certificate response",
+      "type": "object",
+      "title": "CreateCertificateResponse",
+      "required": ["certificateParameters"],
+      "properties": {"certificateParameters": {
+        "allowEmptyValue": false,
+        "description": "Certificate parameters",
+        "readOnly": true,
+        "$ref": "#/definitions/CertificateParameters"
+      }}
+    },
+    "UpdateConfigurationRequest": {
+      "description": "Update configuration request",
+      "type": "object",
+      "title": "UpdateConfigurationRequest",
+      "required": ["configuration"],
+      "properties": {"configuration": {
+        "allowEmptyValue": false,
+        "$ref": "#/definitions/Configuration"
+      }}
+    },
+    "KeyEncryptRequest": {
+      "type": "object",
+      "title": "KeyEncryptRequest",
+      "properties": {
+        "input": {
+          "format": "byte",
+          "type": "string"
+        },
+        "alg": {
+          "type": "string",
+          "enum": [
+            "RSA_OAEP_256",
+            "RSA_OAEP",
+            "RSA1_5"
+          ]
+        }
+      }
+    },
+    "Trigger": {
+      "description": "The trigger for an action",
+      "type": "object",
+      "title": "Trigger",
+      "properties": {
+        "lifetimePercentage": {
+          "allowEmptyValue": false,
+          "format": "int32",
+          "description": "The percentage of the lifetime of the certificate at which to execute the action. eg 90",
+          "type": "integer"
+        },
+        "daysBeforeExpiry": {
+          "allowEmptyValue": false,
+          "format": "int32",
+          "description": "The amount of days before the certificate expires",
+          "type": "integer"
+        }
+      }
+    },
+    "KeyMetadata": {
+      "description": "Key Metadata",
+      "type": "object",
+      "title": "KeyMetadata",
+      "required": [
+        "kid",
+        "url"
+      ],
+      "properties": {
+        "backendMetadata": {
+          "allowEmptyValue": false,
+          "description": "StorageType metadata. This is the place where additional metadata return from the backend is stored",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application metadata. This is the place where you can store your own tags",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "managed": {
+          "allowEmptyValue": false,
+          "description": "True if the key is backing a certificate",
+          "type": "boolean",
+          "example": false
+        },
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "Key Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "The attributes",
+          "readOnly": true,
+          "$ref": "#/definitions/Attributes"
+        },
+        "url": {
+          "allowEmptyValue": false,
+          "description": "Key URL",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "CreateKeyRequest": {
+      "type": "object",
+      "title": "CreateKeyRequest",
+      "properties": {
+        "kty": {
+          "type": "string",
+          "enum": [
+            "EC",
+            "RSA",
+            "OCT"
+          ]
+        },
+        "applicationMetadata": {
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "crv": {
+          "type": "string",
+          "enum": [
+            "P_256",
+            "P_384",
+            "P_521",
+            "SECP256K1"
+          ]
+        },
+        "key_ops": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ENCRYPT",
+              "DECRYPT",
+              "SIGN",
+              "VERIFY",
+              "WRAP_KEY",
+              "UNWRAP_KEY"
+            ]
+          }
+        },
+        "name": {"type": "string"},
+        "attributes": {"$ref": "#/definitions/Attributes"},
+        "key_size": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "KeyBundle": {
+      "description": "Key Metadata",
+      "type": "object",
+      "title": "KeyBundle",
+      "required": [
+        "hsmType",
+        "key",
+        "kid",
+        "url"
+      ],
+      "properties": {
+        "hsmType": {
+          "allowEmptyValue": false,
+          "description": "The HSM Type if any",
+          "readOnly": true,
+          "type": "string",
+          "enum": [
+            "NONE",
+            "AZURE_KEYVAULT_HSM"
+          ]
+        },
+        "backendMetadata": {
+          "allowEmptyValue": false,
+          "description": "StorageType metadata. This is the place where additional metadata return from the backend is stored",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application metadata. This is the place where you can store your own tags",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "managed": {
+          "allowEmptyValue": false,
+          "description": "True if the key is backing a certificate",
+          "type": "boolean",
+          "example": false
+        },
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "Key Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "The attributes",
+          "readOnly": true,
+          "$ref": "#/definitions/Attributes"
+        },
+        "key": {
+          "allowEmptyValue": false,
+          "description": "The Json Web Key",
+          "readOnly": true,
+          "$ref": "#/definitions/JsonWebKey"
+        },
+        "url": {
+          "allowEmptyValue": false,
+          "description": "Key URL",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "KeySignResponse": {
+      "type": "object",
+      "title": "KeySignResponse",
+      "properties": {
+        "signature": {
+          "format": "byte",
+          "type": "string"
+        },
+        "kid": {"type": "string"}
+      }
+    },
+    "CertificateMetadata": {
+      "description": "Certificate metadata",
+      "type": "object",
+      "title": "CertificateMetadata",
+      "required": [
+        "cid",
+        "url"
+      ],
+      "properties": {
+        "backendMetadata": {
+          "allowEmptyValue": false,
+          "description": "StorageType metadata. This is the place where additional metadata return from the backend is stored",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application metadata. This is the place where you can store your own tags",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "The attributes",
+          "readOnly": true,
+          "$ref": "#/definitions/Attributes"
+        },
+        "url": {
+          "allowEmptyValue": false,
+          "description": "Certificate URL",
+          "readOnly": true,
+          "type": "string"
+        },
+        "x509Thumbprint": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "Certificate X509 thumbprint",
+          "readOnly": true,
+          "type": "string"
+        },
+        "cid": {
+          "allowEmptyValue": false,
+          "description": "Certificate Id",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "KeyProperties": {
+      "description": "Properties of the key pair backing the certificate",
+      "type": "object",
+      "title": "KeyProperties",
+      "properties": {
+        "kty": {
+          "allowEmptyValue": false,
+          "description": "Key type",
+          "type": "string"
+        },
+        "exportable": {
+          "allowEmptyValue": false,
+          "description": "Whether the private key is exportable",
+          "type": "boolean",
+          "example": false
+        },
+        "keySize": {
+          "allowEmptyValue": false,
+          "format": "int32",
+          "description": "The key size in bytes. eg 1024, 2048 or 4096",
+          "type": "integer"
+        },
+        "reuseOnRenewal": {
+          "allowEmptyValue": false,
+          "description": "Indicates if the same key pair will be used on certificate renewal",
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "CertificateBundle": {
+      "type": "object",
+      "title": "CertificateBundle",
+      "required": [
+        "cer",
+        "cid",
+        "url"
+      ],
+      "properties": {
+        "cer": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "Certificate x509 CER contents",
+          "readOnly": true,
+          "type": "string"
+        },
+        "backendMetadata": {
+          "allowEmptyValue": false,
+          "description": "StorageType metadata. This is the place where additional metadata return from the backend is stored",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application metadata. This is the place where you can store your own tags",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "Key Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "The attributes",
+          "readOnly": true,
+          "$ref": "#/definitions/Attributes"
+        },
+        "mediaType": {
+          "allowEmptyValue": false,
+          "description": "Media type of the certificate",
+          "readOnly": true,
+          "type": "string"
+        },
+        "url": {
+          "allowEmptyValue": false,
+          "description": "Certificate URL",
+          "readOnly": true,
+          "type": "string"
+        },
+        "x509Thumbprint": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "Certificate X509 thumbprint",
+          "readOnly": true,
+          "type": "string"
+        },
+        "cid": {
+          "allowEmptyValue": false,
+          "description": "Certificate Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "policy": {
+          "allowEmptyValue": false,
+          "description": "Certificate management policy",
+          "readOnly": true,
+          "$ref": "#/definitions/CertificatePolicy"
+        },
+        "sid": {
+          "allowEmptyValue": false,
+          "description": "Secret Id",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "IssuerParameters": {
+      "description": "Issuer params of the X509 component of a certificate",
+      "type": "object",
+      "title": "IssuerParameters",
+      "required": [
+        "cty",
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "allowEmptyValue": false,
+          "description": "Name of the referenced issuer object or reserved names; for example, 'Self' or 'Unknown'.",
+          "type": "string"
+        },
+        "cty": {
+          "allowEmptyValue": false,
+          "description": "Type of certificate",
+          "type": "string"
+        }
+      }
+    },
+    "JsonWebKey": {
+      "description": "Json Web Key as specified in http://tools.ietf.org/html/draft-ietf-jose-json-web-key-18",
+      "type": "object",
+      "title": "JsonWebKey",
+      "properties": {
+        "d": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA private exponent",
+          "type": "string"
+        },
+        "e": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA public exponent",
+          "type": "string"
+        },
+        "crv": {
+          "allowEmptyValue": false,
+          "description": "Elliptic curve name. see JsonWebKeyCurveName",
+          "type": "string",
+          "enum": [
+            "P_256",
+            "P_384",
+            "P_521",
+            "SECP256K1"
+          ]
+        },
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "Key id",
+          "type": "string"
+        },
+        "k": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "Symmetric key",
+          "type": "string"
+        },
+        "dp": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA Private Key Parameter",
+          "type": "string"
+        },
+        "dq": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA Private Key Parameter",
+          "type": "string"
+        },
+        "n": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA modulus",
+          "type": "string"
+        },
+        "p": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA secret prime",
+          "type": "string"
+        },
+        "kty": {
+          "allowEmptyValue": false,
+          "description": "Key type",
+          "type": "string",
+          "enum": [
+            "EC",
+            "RSA",
+            "OCT"
+          ]
+        },
+        "q": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA secret prime, with p < q",
+          "type": "string"
+        },
+        "t": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "HSM Token, used with Bring Your Own Key",
+          "type": "string"
+        },
+        "key_ops": {
+          "allowEmptyValue": false,
+          "description": "Supported operations",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ENCRYPT",
+              "DECRYPT",
+              "SIGN",
+              "VERIFY",
+              "WRAP_KEY",
+              "UNWRAP_KEY"
+            ]
+          }
+        },
+        "qi": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "RSA Private Key Parameter",
+          "type": "string"
+        },
+        "x": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "X component of an EC public key",
+          "type": "string"
+        },
+        "y": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "Y component of an EC public key.",
+          "type": "string"
+        }
+      }
+    },
+    "SubjectAlternativeNames": {
+      "description": "Subject Alternative Names",
+      "type": "object",
+      "title": "SubjectAlternativeNames",
+      "properties": {
+        "emailAddresses": {
+          "allowEmptyValue": false,
+          "description": "Email adresses",
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "dnsNames": {
+          "allowEmptyValue": false,
+          "description": "Domain names",
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "userPrincipalNames": {
+          "allowEmptyValue": false,
+          "description": "User principal names",
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "KeySignRequest": {
+      "type": "object",
+      "title": "KeySignRequest",
+      "properties": {
+        "digest": {
+          "format": "byte",
+          "type": "string"
+        },
+        "alg": {
+          "type": "string",
+          "enum": [
+            "PS256",
+            "PS384",
+            "PS512",
+            "RS256",
+            "RS384",
+            "RS512",
+            "RSNULL",
+            "ES256",
+            "ES384",
+            "ES512",
+            "ECDSA256"
+          ]
+        }
+      }
+    },
+    "Create configuration request": {
+      "type": "object",
+      "title": "Create configuration request",
+      "required": ["configuration"],
+      "properties": {"configuration": {
+        "allowEmptyValue": false,
+        "$ref": "#/definitions/Configuration"
+      }}
+    },
+    "LocalStorageSettings": {
+      "type": "object",
+      "title": "LocalStorageSettings"
+    },
+    "ImportCertificateRequest": {
+      "description": "Imports an existing valid certificate, containing a private key. The certificate can be supplied in PFX and PEM format. When using PEM format, it must contain the key as well as x509 certificate(s).",
+      "type": "object",
+      "title": "ImportCertificateRequest",
+      "required": [
+        "certificate",
+        "name",
+        "policy"
+      ],
+      "properties": {
+        "password": {
+          "allowEmptyValue": false,
+          "description": "If the private key has a password it needs to be supplied here",
+          "type": "string"
+        },
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application specific metadata",
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "certificate": {
+          "allowEmptyValue": false,
+          "description": "Base64 encoded representation of the certificate to import. It needs to contain the private key",
+          "type": "string"
+        },
+        "name": {
+          "allowEmptyValue": false,
+          "description": "Certificate name",
+          "type": "string"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "Certificate attributes",
+          "$ref": "#/definitions/Attributes"
+        },
+        "policy": {
+          "allowEmptyValue": false,
+          "description": "Certificate policy",
+          "$ref": "#/definitions/CertificatePolicy"
+        }
+      }
+    },
+    "CreateCertificateRequest": {
+      "description": "Create certificate request",
+      "type": "object",
+      "title": "CreateCertificateRequest",
+      "required": [
+        "name",
+        "policy"
+      ],
+      "properties": {
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application metadata. This is the place where you can store your own tags",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "name": {
+          "allowEmptyValue": false,
+          "description": "The name for the certificate",
+          "type": "string"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "The attributes",
+          "$ref": "#/definitions/Attributes"
+        },
+        "policy": {
+          "allowEmptyValue": false,
+          "description": "The policy",
+          "$ref": "#/definitions/CertificatePolicy"
+        }
+      }
+    },
+    "CertificateParameters": {
+      "type": "object",
+      "title": "CertificateParameters",
+      "properties": {
+        "csr": {"type": "string"},
+        "requestId": {"type": "string"},
+        "certificateId": {"type": "string"},
+        "statusDetails": {"type": "string"},
+        "issuerParameters": {"$ref": "#/definitions/IssuerParameters"},
+        "status": {"type": "string"},
+        "target": {"type": "string"}
+      }
+    },
+    "SecretProperties": {
+      "description": "Properties of the key backing the certificate",
+      "type": "object",
+      "title": "SecretProperties",
+      "properties": {"mediaType": {
+        "allowEmptyValue": false,
+        "description": "The media type (MIME type)",
+        "type": "string"
+      }}
+    },
+    "CertificateMetadataListResponse": {
+      "description": "Certificate Metadata list response",
+      "type": "object",
+      "title": "CertificateMetadataListResponse",
+      "required": ["certificateMetadata"],
+      "properties": {"certificateMetadata": {
+        "allowEmptyValue": false,
+        "description": "The certificate metadata keyed by certificate id",
+        "readOnly": true,
+        "additionalProperties": {"$ref": "#/definitions/CertificateMetadata"},
+        "type": "object"
+      }}
+    },
+    "KeyVerifyResponse": {
+      "type": "object",
+      "title": "KeyVerifyResponse",
+      "properties": {
+        "kid": {"type": "string"},
+        "verified": {"type": "boolean"}
+      }
+    },
+    "CertificateBundleResponse": {
+      "description": "Certificate bundle response",
+      "type": "object",
+      "title": "CertificateBundleResponse",
+      "required": [
+        "certificateBundle",
+        "name",
+        "version"
+      ],
+      "properties": {
+        "certificateBundle": {
+          "allowEmptyValue": false,
+          "description": "Certificate bundle",
+          "readOnly": true,
+          "$ref": "#/definitions/CertificateBundle"
+        },
+        "name": {
+          "allowEmptyValue": false,
+          "description": "The name/id of the certificate",
+          "readOnly": true,
+          "type": "string"
+        },
+        "version": {
+          "allowEmptyValue": false,
+          "description": "The version of the bundle",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "KeyVerifyRequest": {
+      "type": "object",
+      "title": "KeyVerifyRequest",
+      "properties": {
+        "signature": {
+          "format": "byte",
+          "type": "string"
+        },
+        "digest": {
+          "format": "byte",
+          "type": "string"
+        },
+        "alg": {
+          "type": "string",
+          "enum": [
+            "PS256",
+            "PS384",
+            "PS512",
+            "RS256",
+            "RS384",
+            "RS512",
+            "RSNULL",
+            "ES256",
+            "ES384",
+            "ES512",
+            "ECDSA256"
+          ]
+        }
+      }
+    },
+    "DeletedKeyBundle": {
+      "description": "Key Metadata",
+      "type": "object",
+      "title": "DeletedKeyBundle",
+      "required": [
+        "hsmType",
+        "key",
+        "kid",
+        "url"
+      ],
+      "properties": {
+        "hsmType": {
+          "allowEmptyValue": false,
+          "description": "The HSM Type if any",
+          "readOnly": true,
+          "type": "string",
+          "enum": [
+            "NONE",
+            "AZURE_KEYVAULT_HSM"
+          ]
+        },
+        "scheduledPurgeTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "backendMetadata": {
+          "allowEmptyValue": false,
+          "description": "StorageType metadata. This is the place where additional metadata return from the backend is stored",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "applicationMetadata": {
+          "allowEmptyValue": false,
+          "description": "Application metadata. This is the place where you can store your own tags",
+          "readOnly": true,
+          "additionalProperties": {"type": "string"},
+          "type": "object"
+        },
+        "managed": {
+          "allowEmptyValue": false,
+          "description": "True if the key is backing a certificate",
+          "type": "boolean",
+          "example": false
+        },
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "Key Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "attributes": {
+          "allowEmptyValue": false,
+          "description": "The attributes",
+          "readOnly": true,
+          "$ref": "#/definitions/Attributes"
+        },
+        "deletedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "recoveryId": {"type": "string"},
+        "key": {
+          "allowEmptyValue": false,
+          "description": "The Json Web Key",
+          "readOnly": true,
+          "$ref": "#/definitions/JsonWebKey"
+        },
+        "url": {
+          "allowEmptyValue": false,
+          "description": "Key URL",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "KeyDecryptResponse": {
+      "type": "object",
+      "title": "KeyDecryptResponse",
+      "properties": {
+        "kid": {"type": "string"},
+        "decrypted": {
+          "format": "byte",
+          "type": "string"
+        }
+      }
+    },
+    "DeletedKeyBundleResponse": {
+      "description": "Key bundle response",
+      "type": "object",
+      "title": "DeletedKeyBundleResponse",
+      "required": [
+        "keyBundle",
+        "name",
+        "version"
+      ],
+      "properties": {
+        "keyBundle": {
+          "allowEmptyValue": false,
+          "description": "Key bundle",
+          "readOnly": true,
+          "$ref": "#/definitions/DeletedKeyBundle"
+        },
+        "name": {
+          "allowEmptyValue": false,
+          "description": "The name/id of the key",
+          "readOnly": true,
+          "type": "string"
+        },
+        "version": {
+          "allowEmptyValue": false,
+          "description": "The version of the bundle",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "KeyEncryptResponse": {
+      "type": "object",
+      "title": "KeyEncryptResponse",
+      "properties": {
+        "encrypted": {
+          "format": "byte",
+          "type": "string"
+        },
+        "kid": {"type": "string"}
+      }
+    },
+    "KeyMetadataListResponse": {
+      "description": "Key metadata list response",
+      "type": "object",
+      "title": "KeyMetadataListResponse",
+      "required": ["keyMetadata"],
+      "properties": {"keyMetadata": {
+        "allowEmptyValue": false,
+        "description": "Key metadata list, keyed with Key Id",
+        "readOnly": true,
+        "additionalProperties": {"$ref": "#/definitions/KeyMetadata"},
+        "type": "object"
+      }}
+    }
+  },
+  "swagger": "2.0",
+  "info": {
+    "license": {
+      "name": "Apache License Version 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "contact": {
+      "name": "Sphereon DevOps Team",
+      "url": "https://sphereon.com",
+      "email": "dev@sphereon.com"
+    },
+    "description": "The Crypto Keys API allows you to import, create and work with symmetric and asymmetric keys and certificates to sign/verify digest values, encrypt/decrypt input, or hash and sign input values. The benefit is that you don't have to store secret keys in your application.\r\nThe API has an integration with Azure KeyVault, allowing you to store keys, secrets and certificates in FIPS 140-2 Level 2 validated Hardware Security Modules (HSM). The key will never leave the HSM, making it really secure, especially if you combine it with IP whitelisting\r\n\r\n\r\nInteractive testing: A web based test console is available in the <a href=\"https://store.sphereon.com\">Sphereon API Store<\/a>",
+    "termsOfService": "https://sphereon.com",
+    "title": "Crypto Keys",
+    "version": "0.9"
+  },
+  "tags": [
+    {
+      "name": "Cert",
+      "description": "Certificate Management APIs"
+    },
+    {
+      "name": "Config",
+      "description": "Configuration APIs"
+    },
+    {
+      "name": "Content",
+      "description": "Content APIs"
+    },
+    {
+      "name": "Key",
+      "description": "Key Management APIs"
+    }
+  ]
+}
