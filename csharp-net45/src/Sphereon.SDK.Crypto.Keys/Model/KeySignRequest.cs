@@ -25,14 +25,15 @@ using SwaggerDateConverter = Sphereon.SDK.Crypto.Keys.Client.SwaggerDateConverte
 namespace Sphereon.SDK.Crypto.Keys.Model
 {
     /// <summary>
-    /// KeySignRequest
+    /// The sign request (using a key)
     /// </summary>
     [DataContract]
     public partial class KeySignRequest :  IEquatable<KeySignRequest>, IValidatableObject
     {
         /// <summary>
-        /// Gets or Sets Alg
+        /// The algorithm to use for signing the diget
         /// </summary>
+        /// <value>The algorithm to use for signing the diget</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AlgEnum
         {
@@ -105,24 +106,47 @@ namespace Sphereon.SDK.Crypto.Keys.Model
         }
 
         /// <summary>
-        /// Gets or Sets Alg
+        /// The algorithm to use for signing the diget
         /// </summary>
+        /// <value>The algorithm to use for signing the diget</value>
         [DataMember(Name="alg", EmitDefaultValue=false)]
         public AlgEnum? Alg { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="KeySignRequest" /> class.
         /// </summary>
-        /// <param name="Digest">Digest.</param>
-        /// <param name="Alg">Alg.</param>
+        [JsonConstructorAttribute]
+        protected KeySignRequest() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeySignRequest" /> class.
+        /// </summary>
+        /// <param name="Digest">The digest value. This must be a hash that conforms to the algorithm choosen (required).</param>
+        /// <param name="Alg">The algorithm to use for signing the diget (required).</param>
         public KeySignRequest(byte[] Digest = default(byte[]), AlgEnum? Alg = default(AlgEnum?))
         {
-            this.Digest = Digest;
-            this.Alg = Alg;
+            // to ensure "Digest" is required (not null)
+            if (Digest == null)
+            {
+                throw new InvalidDataException("Digest is a required property for KeySignRequest and cannot be null");
+            }
+            else
+            {
+                this.Digest = Digest;
+            }
+            // to ensure "Alg" is required (not null)
+            if (Alg == null)
+            {
+                throw new InvalidDataException("Alg is a required property for KeySignRequest and cannot be null");
+            }
+            else
+            {
+                this.Alg = Alg;
+            }
         }
         
         /// <summary>
-        /// Gets or Sets Digest
+        /// The digest value. This must be a hash that conforms to the algorithm choosen
         /// </summary>
+        /// <value>The digest value. This must be a hash that conforms to the algorithm choosen</value>
         [DataMember(Name="digest", EmitDefaultValue=false)]
         public byte[] Digest { get; set; }
 

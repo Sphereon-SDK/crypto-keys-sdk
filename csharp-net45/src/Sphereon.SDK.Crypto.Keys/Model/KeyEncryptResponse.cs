@@ -33,25 +33,24 @@ namespace Sphereon.SDK.Crypto.Keys.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyEncryptResponse" /> class.
         /// </summary>
-        /// <param name="Encrypted">Encrypted.</param>
-        /// <param name="Kid">Kid.</param>
-        public KeyEncryptResponse(byte[] Encrypted = default(byte[]), string Kid = default(string))
+        [JsonConstructorAttribute]
+        public KeyEncryptResponse()
         {
-            this.Encrypted = Encrypted;
-            this.Kid = Kid;
         }
         
         /// <summary>
-        /// Gets or Sets Encrypted
+        /// The encrypted value in base64 value
         /// </summary>
+        /// <value>The encrypted value in base64 value</value>
         [DataMember(Name="encrypted", EmitDefaultValue=false)]
-        public byte[] Encrypted { get; set; }
+        public byte[] Encrypted { get; private set; }
 
         /// <summary>
-        /// Gets or Sets Kid
+        /// The Key Id
         /// </summary>
+        /// <value>The Key Id</value>
         [DataMember(Name="kid", EmitDefaultValue=false)]
-        public string Kid { get; set; }
+        public string Kid { get; private set; }
 
         /// <summary>
         /// Returns the string presentation of the object

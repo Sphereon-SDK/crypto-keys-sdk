@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**digest** | **Blob** |  | [optional] 
-**alg** | **String** |  | [optional] 
+**digest** | **Blob** | The digest value. This must be a hash that conforms to the algorithm choosen | 
+**alg** | **String** | The algorithm to use for signing the diget | 
 
 
 <a name="AlgEnum"></a>

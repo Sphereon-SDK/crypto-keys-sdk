@@ -12,7 +12,7 @@ Contact: dev@sphereon.com
     
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProjectGuid>{151FC6E2-C39D-49CD-8BBE-55B2CD3494CE}</ProjectGuid>
+		<ProjectGuid>{27BA538D-C8DE-4261-ABDF-64DCD6969A50}</ProjectGuid>
 		<OutputType>Library</OutputType>
 		<AppDesignerFolder>Properties</AppDesignerFolder>
 		<RootNamespace>Sphereon.SDK.Crypto.Keys</RootNamespace>

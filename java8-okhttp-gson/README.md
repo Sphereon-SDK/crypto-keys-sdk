@@ -28,7 +28,7 @@ Add this dependency to your project's POM:
 <dependency>
     <groupId>com.sphereon.sdk</groupId>
     <artifactId>crypto-keys-sdk-java8-okhttp-gson</artifactId>
-    <version>0.9.0-SNAPSHOT</version>
+    <version>0.9.0</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.sphereon.sdk:crypto-keys-sdk-java8-okhttp-gson:0.9.0-SNAPSHOT"
+compile "com.sphereon.sdk:crypto-keys-sdk-java8-okhttp-gson:0.9.0"
 ```
 
 ### Others
@@ -49,7 +49,7 @@ At first generate the JAR by executing:
 
 Then manually install the following JARs:
 
-* target/crypto-keys-sdk-java8-okhttp-gson-0.9.0-SNAPSHOT.jar
+* target/crypto-keys-sdk-java8-okhttp-gson-0.9.0.jar
 * target/lib/*.jar
 
 ## Getting Started

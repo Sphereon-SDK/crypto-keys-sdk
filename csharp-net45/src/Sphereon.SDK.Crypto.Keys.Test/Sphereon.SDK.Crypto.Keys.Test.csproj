@@ -75,7 +75,7 @@ Contact: dev@sphereon.com
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\Sphereon.SDK.Crypto.Keys\Sphereon.SDK.Crypto.Keys.csproj">
-          <Project>{151FC6E2-C39D-49CD-8BBE-55B2CD3494CE}</Project>
+          <Project>{27BA538D-C8DE-4261-ABDF-64DCD6969A50}</Project>
           <Name>Sphereon.SDK.Crypto.Keys</Name>
       </ProjectReference>
   </ItemGroup>
