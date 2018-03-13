@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**digest** | **byte[]** |  |  [optional]
-**alg** | [**AlgEnum**](#AlgEnum) |  |  [optional]
+**digest** | **byte[]** | The digest value. This must be a hash that conforms to the algorithm choosen | 
+**alg** | [**AlgEnum**](#AlgEnum) | The algorithm to use for signing the diget | 
 
 
 <a name="AlgEnum"></a>

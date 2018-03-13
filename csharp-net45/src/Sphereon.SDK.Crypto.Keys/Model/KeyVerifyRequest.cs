@@ -25,14 +25,15 @@ using SwaggerDateConverter = Sphereon.SDK.Crypto.Keys.Client.SwaggerDateConverte
 namespace Sphereon.SDK.Crypto.Keys.Model
 {
     /// <summary>
-    /// KeyVerifyRequest
+    /// The verify request (using the digest and signature). Please note that for assymetric encryption we encourage you to do the verification clientside for best performance
     /// </summary>
     [DataContract]
     public partial class KeyVerifyRequest :  IEquatable<KeyVerifyRequest>, IValidatableObject
     {
         /// <summary>
-        /// Gets or Sets Alg
+        /// The algorithm to use for signing the diget
         /// </summary>
+        /// <value>The algorithm to use for signing the diget</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AlgEnum
         {
@@ -105,35 +106,68 @@ namespace Sphereon.SDK.Crypto.Keys.Model
         }
 
         /// <summary>
-        /// Gets or Sets Alg
+        /// The algorithm to use for signing the diget
         /// </summary>
+        /// <value>The algorithm to use for signing the diget</value>
         [DataMember(Name="alg", EmitDefaultValue=false)]
         public AlgEnum? Alg { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyVerifyRequest" /> class.
         /// </summary>
-        /// <param name="Signature">Signature.</param>
-        /// <param name="Digest">Digest.</param>
-        /// <param name="Alg">Alg.</param>
-        public KeyVerifyRequest(byte[] Signature = default(byte[]), byte[] Digest = default(byte[]), AlgEnum? Alg = default(AlgEnum?))
+        [JsonConstructorAttribute]
+        protected KeyVerifyRequest() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyVerifyRequest" /> class.
+        /// </summary>
+        /// <param name="Digest">The digest value. This must be a hash that conforms to the algorithm choosen (required).</param>
+        /// <param name="Base64Signature">The signature in base 64 form. Please note that the base 64 xor the HEX signature is mandatory..</param>
+        /// <param name="Alg">The algorithm to use for signing the diget (required).</param>
+        /// <param name="HexSignature">The signature in HEX form. Please note that the base 64 xor the HEX signature is mandatory..</param>
+        public KeyVerifyRequest(byte[] Digest = default(byte[]), byte[] Base64Signature = default(byte[]), AlgEnum? Alg = default(AlgEnum?), string HexSignature = default(string))
         {
-            this.Signature = Signature;
-            this.Digest = Digest;
-            this.Alg = Alg;
+            // to ensure "Digest" is required (not null)
+            if (Digest == null)
+            {
+                throw new InvalidDataException("Digest is a required property for KeyVerifyRequest and cannot be null");
+            }
+            else
+            {
+                this.Digest = Digest;
+            }
+            // to ensure "Alg" is required (not null)
+            if (Alg == null)
+            {
+                throw new InvalidDataException("Alg is a required property for KeyVerifyRequest and cannot be null");
+            }
+            else
+            {
+                this.Alg = Alg;
+            }
+            this.Base64Signature = Base64Signature;
+            this.HexSignature = HexSignature;
         }
         
         /// <summary>
-        /// Gets or Sets Signature
+        /// The digest value. This must be a hash that conforms to the algorithm choosen
         /// </summary>
-        [DataMember(Name="signature", EmitDefaultValue=false)]
-        public byte[] Signature { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Digest
-        /// </summary>
+        /// <value>The digest value. This must be a hash that conforms to the algorithm choosen</value>
         [DataMember(Name="digest", EmitDefaultValue=false)]
         public byte[] Digest { get; set; }
 
+        /// <summary>
+        /// The signature in base 64 form. Please note that the base 64 xor the HEX signature is mandatory.
+        /// </summary>
+        /// <value>The signature in base 64 form. Please note that the base 64 xor the HEX signature is mandatory.</value>
+        [DataMember(Name="base64Signature", EmitDefaultValue=false)]
+        public byte[] Base64Signature { get; set; }
+
+
+        /// <summary>
+        /// The signature in HEX form. Please note that the base 64 xor the HEX signature is mandatory.
+        /// </summary>
+        /// <value>The signature in HEX form. Please note that the base 64 xor the HEX signature is mandatory.</value>
+        [DataMember(Name="hexSignature", EmitDefaultValue=false)]
+        public string HexSignature { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -143,9 +177,10 @@ namespace Sphereon.SDK.Crypto.Keys.Model
         {
             var sb = new StringBuilder();
             sb.Append("class KeyVerifyRequest {\n");
-            sb.Append("  Signature: ").Append(Signature).Append("\n");
             sb.Append("  Digest: ").Append(Digest).Append("\n");
+            sb.Append("  Base64Signature: ").Append(Base64Signature).Append("\n");
             sb.Append("  Alg: ").Append(Alg).Append("\n");
+            sb.Append("  HexSignature: ").Append(HexSignature).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -183,19 +218,24 @@ namespace Sphereon.SDK.Crypto.Keys.Model
 
             return 
                 (
-                    this.Signature == other.Signature ||
-                    this.Signature != null &&
-                    this.Signature.Equals(other.Signature)
-                ) && 
-                (
                     this.Digest == other.Digest ||
                     this.Digest != null &&
                     this.Digest.Equals(other.Digest)
                 ) && 
                 (
+                    this.Base64Signature == other.Base64Signature ||
+                    this.Base64Signature != null &&
+                    this.Base64Signature.Equals(other.Base64Signature)
+                ) && 
+                (
                     this.Alg == other.Alg ||
                     this.Alg != null &&
                     this.Alg.Equals(other.Alg)
+                ) && 
+                (
+                    this.HexSignature == other.HexSignature ||
+                    this.HexSignature != null &&
+                    this.HexSignature.Equals(other.HexSignature)
                 );
         }
 
@@ -210,12 +250,14 @@ namespace Sphereon.SDK.Crypto.Keys.Model
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                if (this.Signature != null)
-                    hash = hash * 59 + this.Signature.GetHashCode();
                 if (this.Digest != null)
                     hash = hash * 59 + this.Digest.GetHashCode();
+                if (this.Base64Signature != null)
+                    hash = hash * 59 + this.Base64Signature.GetHashCode();
                 if (this.Alg != null)
                     hash = hash * 59 + this.Alg.GetHashCode();
+                if (this.HexSignature != null)
+                    hash = hash * 59 + this.HexSignature.GetHashCode();
                 return hash;
             }
         }

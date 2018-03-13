@@ -208,6 +208,11 @@
 		<version>${authentication-lib.version}</version>
 		<scope>test</scope>
 	</dependency>
+    <dependency>
+      <groupId>com.nimbusds</groupId>
+      <artifactId>nimbus-jose-jwt</artifactId>
+      <version>4.33</version>
+    </dependency>
   </dependencies>
   <properties>
     <java.version>1.8</java.version>

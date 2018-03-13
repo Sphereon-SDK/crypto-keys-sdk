@@ -1220,14 +1220,54 @@
       }
     },
     "KeySignResponse": {
+      "description": "The response of the sign request",
       "type": "object",
       "title": "KeySignResponse",
+      "required": [
+        "algorithm",
+        "base64Signature",
+        "hexSignature",
+        "kid"
+      ],
       "properties": {
-        "signature": {
-          "format": "byte",
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "The Key Id",
+          "readOnly": true,
           "type": "string"
         },
-        "kid": {"type": "string"}
+        "base64Signature": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "The signature of the sign request in base 64 form",
+          "readOnly": true,
+          "type": "string"
+        },
+        "algorithm": {
+          "allowEmptyValue": false,
+          "description": "The signature algorithm used in the request",
+          "readOnly": true,
+          "type": "string",
+          "enum": [
+            "PS256",
+            "PS384",
+            "PS512",
+            "RS256",
+            "RS384",
+            "RS512",
+            "RSNULL",
+            "ES256",
+            "ES384",
+            "ES512",
+            "ECDSA256"
+          ]
+        },
+        "hexSignature": {
+          "allowEmptyValue": false,
+          "description": "The signature of the sign request in hex form",
+          "readOnly": true,
+          "type": "string"
+        }
       }
     },
     "CertificateMetadata": {
@@ -1559,14 +1599,23 @@
       }
     },
     "KeySignRequest": {
+      "description": "The sign request (using a key)",
       "type": "object",
       "title": "KeySignRequest",
+      "required": [
+        "alg",
+        "digest"
+      ],
       "properties": {
         "digest": {
+          "allowEmptyValue": false,
           "format": "byte",
+          "description": "The digest value. This must be a hash that conforms to the algorithm choosen",
           "type": "string"
         },
         "alg": {
+          "allowEmptyValue": false,
+          "description": "The algorithm to use for signing the diget",
           "type": "string",
           "enum": [
             "PS256",
@@ -1710,11 +1759,62 @@
       }}
     },
     "KeyVerifyResponse": {
+      "description": "The response of the sign request",
       "type": "object",
       "title": "KeyVerifyResponse",
+      "required": [
+        "algorithm",
+        "base64Signature",
+        "hexSignature",
+        "kid",
+        "verified"
+      ],
       "properties": {
-        "kid": {"type": "string"},
-        "verified": {"type": "boolean"}
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "The Key Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "verified": {
+          "allowEmptyValue": false,
+          "description": "Whether the supplied signature matched the regenerated signature",
+          "readOnly": true,
+          "type": "boolean",
+          "example": false
+        },
+        "base64Signature": {
+          "allowEmptyValue": false,
+          "format": "byte",
+          "description": "The signature of the sign request in base 64 form",
+          "readOnly": true,
+          "type": "string"
+        },
+        "algorithm": {
+          "allowEmptyValue": false,
+          "description": "The signature algorithm used in the request",
+          "readOnly": true,
+          "type": "string",
+          "enum": [
+            "PS256",
+            "PS384",
+            "PS512",
+            "RS256",
+            "RS384",
+            "RS512",
+            "RSNULL",
+            "ES256",
+            "ES384",
+            "ES512",
+            "ECDSA256"
+          ]
+        },
+        "hexSignature": {
+          "allowEmptyValue": false,
+          "description": "The signature of the sign request in hex form",
+          "readOnly": true,
+          "type": "string"
+        }
       }
     },
     "CertificateBundleResponse": {
@@ -1748,18 +1848,29 @@
       }
     },
     "KeyVerifyRequest": {
+      "description": "The verify request (using the digest and signature). Please note that for assymetric encryption we encourage you to do the verification clientside for best performance",
       "type": "object",
       "title": "KeyVerifyRequest",
+      "required": [
+        "alg",
+        "digest"
+      ],
       "properties": {
-        "signature": {
+        "digest": {
+          "allowEmptyValue": false,
           "format": "byte",
+          "description": "The digest value. This must be a hash that conforms to the algorithm choosen",
           "type": "string"
         },
-        "digest": {
+        "base64Signature": {
+          "allowEmptyValue": false,
           "format": "byte",
+          "description": "The signature in base 64 form. Please note that the base 64 xor the HEX signature is mandatory.",
           "type": "string"
         },
         "alg": {
+          "allowEmptyValue": false,
+          "description": "The algorithm to use for signing the diget",
           "type": "string",
           "enum": [
             "PS256",
@@ -1774,6 +1885,11 @@
             "ES512",
             "ECDSA256"
           ]
+        },
+        "hexSignature": {
+          "allowEmptyValue": false,
+          "description": "The signature in HEX form. Please note that the base 64 xor the HEX signature is mandatory.",
+          "type": "string"
         }
       }
     },
@@ -1856,10 +1972,22 @@
     "KeyDecryptResponse": {
       "type": "object",
       "title": "KeyDecryptResponse",
+      "required": [
+        "decrypted",
+        "kid"
+      ],
       "properties": {
-        "kid": {"type": "string"},
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "The Key Id",
+          "readOnly": true,
+          "type": "string"
+        },
         "decrypted": {
+          "allowEmptyValue": false,
           "format": "byte",
+          "description": "The decrypted value in base64url format",
+          "readOnly": true,
           "type": "string"
         }
       }
@@ -1897,12 +2025,24 @@
     "KeyEncryptResponse": {
       "type": "object",
       "title": "KeyEncryptResponse",
+      "required": [
+        "encrypted",
+        "kid"
+      ],
       "properties": {
         "encrypted": {
+          "allowEmptyValue": false,
           "format": "byte",
+          "description": "The encrypted value in base64 value",
+          "readOnly": true,
           "type": "string"
         },
-        "kid": {"type": "string"}
+        "kid": {
+          "allowEmptyValue": false,
+          "description": "The Key Id",
+          "readOnly": true,
+          "type": "string"
+        }
       }
     },
     "KeyMetadataListResponse": {
