@@ -4,22 +4,29 @@
   <groupId>com.sphereon.sdk</groupId>
   <artifactId>crypto-keys-sdk-java8-okhttp-gson</artifactId>
   <packaging>jar</packaging>
-  <name>crypto-keys-sdk-java8-okhttp-gson</name>
   <version>0.9.0</version>
-  <url>https://github.com/swagger-api/swagger-codegen</url>
-  <description>Swagger Java</description>
+  <name>Crypto Keys Okhttp gson SDK</name>
+
+
+  <distributionManagement>
+    <repository>
+      <id>sphereon-sdk-releases</id>
+      <url>http://nexus.qa.sphereon.com/nexus/content/repositories/sphereon-sdk-releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>sphereon-sdk-snapshots</id>
+      <url>http://nexus.qa.sphereon.com/nexus/content/repositories/sphereon-sdk-snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <scm>
-    <connection>scm:git:git@github.com:swagger-api/swagger-codegen.git</connection>
-    <developerConnection>scm:git:git@github.com:swagger-api/swagger-codegen.git</developerConnection>
-    <url>https://github.com/swagger-api/swagger-codegen</url>
+    <connection>scm:git:git@github.com:Sphereon-SDK/crypto-keys-sdk.git</connection>
+    <developerConnection>scm:git:git@github.com:Sphereon-SDK/crypto-keys-sdk.git</developerConnection>
+    <url>https://github.com/Sphereon-SDK/crypto-keys-sdk</url>
   </scm>
-  <prerequisites>
-    <maven>2.2.0</maven>
-  </prerequisites>
 
   <licenses>
     <license>
-      <name>Unlicense</name>
+      <name>Apache2</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
     </license>
