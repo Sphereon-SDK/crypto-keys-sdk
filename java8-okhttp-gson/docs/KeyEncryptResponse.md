@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**encrypted** | **byte[]** |  |  [optional]
-**kid** | **String** |  |  [optional]
+**encrypted** | **byte[]** | The encrypted value in base64 value | 
+**kid** | **String** | The Key Id | 
 
 
 

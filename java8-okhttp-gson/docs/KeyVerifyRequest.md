@@ -4,9 +4,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**signature** | **byte[]** |  |  [optional]
-**digest** | **byte[]** |  |  [optional]
-**alg** | [**AlgEnum**](#AlgEnum) |  |  [optional]
+**digest** | **byte[]** | The digest value. This must be a hash that conforms to the algorithm choosen | 
+**base64Signature** | **byte[]** | The signature in base 64 form. Please note that the base 64 xor the HEX signature is mandatory. |  [optional]
+**alg** | [**AlgEnum**](#AlgEnum) | The algorithm to use for signing the diget | 
+**hexSignature** | **String** | The signature in HEX form. Please note that the base 64 xor the HEX signature is mandatory. |  [optional]
 
 
 <a name="AlgEnum"></a>

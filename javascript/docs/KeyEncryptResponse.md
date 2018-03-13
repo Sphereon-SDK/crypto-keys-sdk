@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**encrypted** | **Blob** |  | [optional] 
-**kid** | **String** |  | [optional] 
+**encrypted** | **Blob** | The encrypted value in base64 value | 
+**kid** | **String** | The Key Id | 
 
 

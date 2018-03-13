@@ -3,9 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**signature** | **Blob** |  | [optional] 
-**digest** | **Blob** |  | [optional] 
-**alg** | **String** |  | [optional] 
+**digest** | **Blob** | The digest value. This must be a hash that conforms to the algorithm choosen | 
+**base64Signature** | **Blob** | The signature in base 64 form. Please note that the base 64 xor the HEX signature is mandatory. | [optional] 
+**alg** | **String** | The algorithm to use for signing the diget | 
+**hexSignature** | **String** | The signature in HEX form. Please note that the base 64 xor the HEX signature is mandatory. | [optional] 
 
 
 <a name="AlgEnum"></a>
